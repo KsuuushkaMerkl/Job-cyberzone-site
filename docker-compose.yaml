@@ -14,8 +14,8 @@ services:
     restart: unless-stopped
     container_name: "fastapi_app"
     volumes:
-      - .:/messenger_app
+      - .:/app
     depends_on:
-      - db
+      - postgres
     ports:
       - "8000:8000"
