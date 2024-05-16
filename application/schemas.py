@@ -26,6 +26,7 @@ class CreateApplicationRequestSchema(BaseModel):
     """
     Create application schema
     """
+    vacancy_id: UUID
     first_name: str
     last_name: str
     email: str

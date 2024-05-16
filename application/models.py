@@ -1,3 +1,5 @@
+import uuid
+
 from sqlalchemy import ForeignKey, String, UUID, ARRAY
 from sqlalchemy.orm import mapped_column, Mapped
 from core.base_model import Base
@@ -6,7 +8,7 @@ from core.base_model import Base
 class Application(Base):
     __tablename__ = "applications"  # noqa
 
-    id: Mapped[UUID] = mapped_column(UUID, primary_key=True)
+    id: Mapped[UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     vacancy_id: Mapped[int] = mapped_column(ForeignKey("vacancies.id", ondelete="CASCADE"))
     first_name: Mapped[str] = mapped_column(String)
     last_name: Mapped[str] = mapped_column(String)

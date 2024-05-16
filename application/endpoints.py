@@ -26,7 +26,7 @@ async def create_application(
     return application
 
 
-@router.patch("/{id}", response_model=ApplicationSchema)
+@router.patch("/{application_id}", response_model=ApplicationSchema)
 async def update_application(
         application_id: uuid.UUID,
         data: UpdateApplicationRequestSchema,
@@ -62,7 +62,7 @@ async def get_all_applications(
     return db.query(Application).all()
 
 
-@router.get("/{id}", response_model=ApplicationSchema)
+@router.get("/{application_id}", response_model=ApplicationSchema)
 async def get_application_by_id(
         application_id: uuid.UUID,
         db: scoped_session = Depends(get_session)
@@ -79,7 +79,7 @@ async def get_application_by_id(
     return application
 
 
-@router.delete("/")
+@router.delete("/{application_id}")
 async def delete_application(
         application_id: uuid.UUID,
         db: scoped_session = Depends(get_session)
