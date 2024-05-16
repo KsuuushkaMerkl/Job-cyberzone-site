@@ -16,6 +16,9 @@ class ApplicationSchema(BaseModel):
     telegram: str
     discord: str
     comment: str
+    experience: str
+    github: str
+    work_time: str
     what_do_you_want: str
 
 
@@ -30,6 +33,9 @@ class CreateApplicationRequestSchema(BaseModel):
     telegram: str
     discord: str
     comment: str
+    experience: str
+    github: str
+    work_time: str
     what_do_you_want: str
 
 
@@ -44,6 +50,9 @@ class UpdateApplicationRequestSchema(BaseModel):
     telegram: str | None = None
     discord: str | None = None
     comment: str | None = None
+    experience: str | None = None
+    github: str | None = None
+    work_time: str | None = None
     what_do_you_want: str | None = None
 
 
