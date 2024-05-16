@@ -26,7 +26,7 @@ async def create_vacancy(
     return vacancy
 
 
-@router.patch("/{id}", response_model=VacancySchema)
+@router.patch("/{vacancy_id}", response_model=VacancySchema)
 async def update_vacancy(
         vacancy_id: uuid.UUID,
         data: UpdateVacancyRequestSchema,
@@ -62,7 +62,7 @@ async def get_all_vacancies(
     return db.query(Vacancy).all()
 
 
-@router.get("/{id}", response_model=VacancySchema)
+@router.get("/{vacancy_id}", response_model=VacancySchema)
 async def get_vacancy_by_id(
         vacancy_id: uuid.UUID,
         db: scoped_session = Depends(get_session)
@@ -79,7 +79,7 @@ async def get_vacancy_by_id(
     return vacancy
 
 
-@router.delete("/")
+@router.delete("/{vacancy_id}")
 async def delete_vacancy(
         vacancy_id: uuid.UUID,
         db: scoped_session = Depends(get_session)
