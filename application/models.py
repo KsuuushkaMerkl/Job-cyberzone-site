@@ -15,4 +15,7 @@ class Application(Base):
     telegram: Mapped[str] = mapped_column(String)
     discord: Mapped[str] = mapped_column(String)
     comment: Mapped[str] = mapped_column(String)
+    experience: Mapped[str] = mapped_column(String)
+    github: Mapped[str] = mapped_column(String)
+    work_time: Mapped[str] = mapped_column(String)
     what_do_you_want: Mapped[str] = mapped_column(String)
