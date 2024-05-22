@@ -6,7 +6,7 @@ from fastapi.encoders import jsonable_encoder
 
 from core.database import get_session
 from vacancy.models import Vacancy
-from vacancy.schemas import VacancySchema, CreateVacancyRequestSchema, UpdateVacancyRequestSchema
+from vacancy.schemas import VacancySchema, VacancyIdSchema, CreateVacancyRequestSchema, UpdateVacancyRequestSchema
 
 router = APIRouter()
 
@@ -26,7 +26,7 @@ async def create_vacancy(
     return vacancy
 
 
-@router.patch("/{vacancy_id}", response_model=VacancySchema)
+@router.patch("/{vacancy_id}", response_model=VacancyIdSchema)
 async def update_vacancy(
         vacancy_id: uuid.UUID,
         data: UpdateVacancyRequestSchema,
@@ -62,7 +62,7 @@ async def get_all_vacancies(
     return db.query(Vacancy).all()
 
 
-@router.get("/{vacancy_id}", response_model=VacancySchema)
+@router.get("/{vacancy_id}", response_model=VacancyIdSchema)
 async def get_vacancy_by_id(
         vacancy_id: uuid.UUID,
         db: scoped_session = Depends(get_session)
