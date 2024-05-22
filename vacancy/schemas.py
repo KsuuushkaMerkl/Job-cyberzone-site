@@ -14,6 +14,18 @@ class VacancySchema(BaseModel):
     location: str
     important: bool
     logo: str
+
+
+class VacancyIdSchema(BaseModel):
+    """
+    Vacancy schema
+    """
+    id: UUID
+    name: str
+    departament: str
+    level: str
+    location: str
+    logo: str
     header: str
     info: str
 
