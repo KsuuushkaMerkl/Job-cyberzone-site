@@ -1,9 +1,9 @@
 from uuid import UUID
 
-from pydantic import BaseModel
+from core.schemas import Schemas
 
 
-class ApplicationSchema(BaseModel):
+class ApplicationSchema(Schemas):
     """
     Application schema
     """
@@ -22,7 +22,7 @@ class ApplicationSchema(BaseModel):
     what_do_you_want: str
 
 
-class CreateApplicationRequestSchema(BaseModel):
+class CreateApplicationRequestSchema(Schemas):
     """
     Create application schema
     """
@@ -40,7 +40,7 @@ class CreateApplicationRequestSchema(BaseModel):
     what_do_you_want: str
 
 
-class UpdateApplicationRequestSchema(BaseModel):
+class UpdateApplicationRequestSchema(Schemas):
     """
     Update application request schema
     """

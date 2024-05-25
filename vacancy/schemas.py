@@ -1,9 +1,9 @@
 from uuid import UUID
 
-from pydantic import BaseModel
+from core.schemas import Schemas
 
 
-class VacancySchema(BaseModel):
+class VacancySchema(Schemas):
     """
     Vacancy schema
     """
@@ -16,7 +16,7 @@ class VacancySchema(BaseModel):
     logo: str
 
 
-class VacancyIdSchema(BaseModel):
+class VacancyIdSchema(Schemas):
     """
     Vacancy schema
     """
@@ -30,7 +30,7 @@ class VacancyIdSchema(BaseModel):
     info: str
 
 
-class CreateVacancyRequestSchema(BaseModel):
+class CreateVacancyRequestSchema(Schemas):
     """
     Create vacancy request schema
     """ 
@@ -44,7 +44,7 @@ class CreateVacancyRequestSchema(BaseModel):
     info: str
 
 
-class UpdateVacancyRequestSchema(BaseModel):
+class UpdateVacancyRequestSchema(Schemas):
     """
     Update vacancy request schema
     """
