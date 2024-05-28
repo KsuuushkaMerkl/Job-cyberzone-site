@@ -9,7 +9,7 @@ class VacancySchema(Schemas):
     """
     id: UUID
     name: str
-    departament: str
+    department: str
     level: str
     location: str
     important: bool
@@ -24,7 +24,7 @@ class VacancyIdSchema(Schemas):
     """
     id: UUID
     name: str
-    departament: str
+    department: str
     level: str
     location: str
     logo: str
@@ -39,7 +39,7 @@ class CreateVacancyRequestSchema(Schemas):
     Create vacancy request schema
     """ 
     name: str
-    departament: str
+    department: str
     level: str
     location: str
     important: bool
@@ -55,7 +55,7 @@ class UpdateVacancyRequestSchema(Schemas):
     Update vacancy request schema
     """
     name: str | None = None
-    departament: str | None = None
+    department: str | None = None
     level: str | None = None
     location: str | None = None
     important: bool | None = None
