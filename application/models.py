@@ -1,6 +1,6 @@
 import uuid
 
-from sqlalchemy import ForeignKey, String, UUID, ARRAY
+from sqlalchemy import ForeignKey, String, UUID
 from sqlalchemy.orm import mapped_column, Mapped
 from core.base_model import Base
 
