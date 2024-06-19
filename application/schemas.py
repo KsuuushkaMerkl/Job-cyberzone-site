@@ -17,7 +17,7 @@ class ApplicationSchema(Schemas):
     discord: str
     comment: str
     experience: str
-    github: str
+    portfolio: str
     work_time: str = Field(validation_alias=AliasChoices("work_time", "workTime"))
     what_do_you_want: str = Field(validation_alias=AliasChoices("what_do_you_want", "whatDoYouWant"))
 
@@ -35,7 +35,7 @@ class CreateApplicationRequestSchema(Schemas):
     discord: str
     comment: str
     experience: str
-    github: str
+    portfolio: str
     work_time: str = Field(validation_alias=AliasChoices("work_time", "workTime"))
     what_do_you_want: str = Field(validation_alias=AliasChoices("what_do_you_want", "whatDoYouWant"))
 
@@ -52,7 +52,7 @@ class UpdateApplicationRequestSchema(Schemas):
     discord: str | None = None
     comment: str | None = None
     experience: str | None = None
-    github: str | None = None
+    portfolio: str | None = None
     work_time: str | None = Field(None, validation_alias=AliasChoices("work_time", "workTime"))
     what_do_you_want: str | None = Field(None, validation_alias=AliasChoices("what_do_you_want", "whatDoYouWant"))
 
