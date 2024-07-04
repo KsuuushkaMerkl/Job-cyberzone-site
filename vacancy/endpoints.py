@@ -6,7 +6,8 @@ from fastapi.encoders import jsonable_encoder
 
 from core.database import get_session
 from vacancy.models import Vacancy
-from vacancy.schemas import VacancySchema, VacancyIdSchema, CreateVacancyRequestSchema, UpdateVacancyRequestSchema
+from vacancy.schemas import VacancySchema, VacancyIdSchema, CreateVacancyRequestSchema, UpdateVacancyRequestSchema, \
+    logo_url, photo_url
 
 router = APIRouter()
 
@@ -59,7 +60,13 @@ async def get_all_vacancies(
     """
     Get all vacancy
     """
-    return db.query(Vacancy).all()
+    vacancies_to_return = []
+    for vacancy in db.query(Vacancy).all():
+        vacancy_ = VacancySchema(**jsonable_encoder(vacancy))
+        vacancy_.photo_url = photo_url.get(vacancy_.department, '')
+        vacancy_.logo_url = logo_url.get(vacancy_.department, '')
+        vacancies_to_return.append(vacancy_)
+    return vacancies_to_return
 
 
 @router.get("/{vacancy_id}", response_model=VacancyIdSchema)
@@ -76,7 +83,10 @@ async def get_vacancy_by_id(
             status_code=404,
             detail="Vacancy not found"
         )
-    return vacancy
+    vacancy_to_return = VacancyIdSchema(**jsonable_encoder(vacancy))
+    vacancy_to_return.photo_url = photo_url.get(vacancy_to_return.department, '')
+    vacancy_to_return.logo_url = logo_url.get(vacancy_to_return.department, '')
+    return vacancy_to_return
 
 
 @router.delete("/{vacancy_id}")

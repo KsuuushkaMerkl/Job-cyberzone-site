@@ -3,6 +3,33 @@ from uuid import UUID
 from core.schemas import Schemas
 
 
+photo_url = {
+    "COSPLAY": "https://s3.cyberzone.dev/job-site-assets/cosplay.png",
+    "CRAFT": "https://s3.cyberzone.dev/job-site-assets/craft.png",
+    "DESIGN": "https://s3.cyberzone.dev/job-site-assets/design.png",
+    "IT": "https://s3.cyberzone.dev/job-site-assets/it.png",
+    "PHOTO": "https://s3.cyberzone.dev/job-site-assets/photo.png",
+    "REFEREE":  "https://s3.cyberzone.dev/job-site-assets/referee.png",
+    "SMM":  "https://s3.cyberzone.dev/job-site-assets/smm.png",
+    "TABLEGAMES": "https://s3.cyberzone.dev/job-site-assets/tablegames.png",
+    "TWITCH": "https://s3.cyberzone.dev/job-site-assets/twitch.png",
+    "VIDEO": "https://s3.cyberzone.dev/job-site-assets/video.png"
+}
+
+logo_url = {
+    "COSPLAY": "https://s3.cyberzone.dev/job-site-assets/cosplay_logo.png",
+    "CRAFT": "https://s3.cyberzone.dev/job-site-assets/craft_logo.png",
+    "DESIGN": "https://s3.cyberzone.dev/job-site-assets/design_logo.png",
+    "IT": "https://s3.cyberzone.dev/job-site-assets/it_logo.png",
+    "PHOTO": "https://s3.cyberzone.dev/job-site-assets/photo_logo.png",
+    "REFEREE":  "https://s3.cyberzone.dev/job-site-assets/referee_logo.png",
+    "SMM":  "https://s3.cyberzone.dev/job-site-assets/smm_logo.png",
+    "TABLEGAMES": "https://s3.cyberzone.dev/job-site-assets/tablegames_logo.png",
+    "TWITCH": "https://s3.cyberzone.dev/job-site-assets/twitch_logo.png",
+    "VIDEO": "https://s3.cyberzone.dev/job-site-assets/video_logo.png"
+}
+
+
 class VacancySchema(Schemas):
     """
     Vacancy schema
@@ -10,12 +37,15 @@ class VacancySchema(Schemas):
     id: UUID
     name: str
     department: str
+    photo_url: str
+    logo_url: str
     level: str
     location: str
     important: bool
     logo: str
     requirements: list[str]
     tasks: list[str]
+    task: str
 
 
 class VacancyIdSchema(Schemas):
@@ -25,6 +55,8 @@ class VacancyIdSchema(Schemas):
     id: UUID
     name: str
     department: str
+    photo_url: str
+    logo_url: str
     level: str
     location: str
     logo: str
@@ -32,6 +64,7 @@ class VacancyIdSchema(Schemas):
     info: str
     requirements: list[str]
     tasks: list[str]
+    task: str
 
 
 class CreateVacancyRequestSchema(Schemas):
@@ -48,6 +81,7 @@ class CreateVacancyRequestSchema(Schemas):
     info: str
     requirements: list[str]
     tasks: list[str]
+    task: str
 
 
 class UpdateVacancyRequestSchema(Schemas):
@@ -64,4 +98,6 @@ class UpdateVacancyRequestSchema(Schemas):
     info: str | None = None
     requirements: list[str] | None = None
     tasks: list[str] | None = None
+    task: str | None = None
+
 
