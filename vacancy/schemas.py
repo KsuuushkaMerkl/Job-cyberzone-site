@@ -42,7 +42,6 @@ class VacancySchema(Schemas):
     level: str
     location: str
     important: bool
-    logo: str
     requirements: list[str]
     tasks: list[str]
     task: str
@@ -59,8 +58,6 @@ class VacancyIdSchema(Schemas):
     logo_url: str
     level: str
     location: str
-    logo: str
-    header: str
     info: str
     requirements: list[str]
     tasks: list[str]
@@ -73,11 +70,11 @@ class CreateVacancyRequestSchema(Schemas):
     """ 
     name: str
     department: str
+    photo_url: str
+    logo_url: str
     level: str
     location: str
     important: bool
-    logo: str
-    header: str
     info: str
     requirements: list[str]
     tasks: list[str]
@@ -90,11 +87,11 @@ class UpdateVacancyRequestSchema(Schemas):
     """
     name: str | None = None
     department: str | None = None
+    photo_url: str | None = None
+    logo_url: str | None = None
     level: str | None = None
     location: str | None = None
     important: bool | None = None
-    logo: str | None = None
-    header: str | None = None
     info: str | None = None
     requirements: list[str] | None = None
     tasks: list[str] | None = None
