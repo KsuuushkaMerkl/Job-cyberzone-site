@@ -6,7 +6,7 @@ COPY . .
 
 RUN pip install --upgrade pip
 
-#RUN apk add gcc musl-dev libffi-dev
+RUN mkdir static
 
 RUN pip install poetry && poetry config virtualenvs.create false
 
