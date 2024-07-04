@@ -37,8 +37,8 @@ class VacancySchema(Schemas):
     id: UUID
     name: str
     department: str
-    photo_url: str
-    logo_url: str
+    photo_url: str = ""
+    logo_url: str = ""
     level: str
     location: str
     important: bool
