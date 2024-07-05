@@ -37,8 +37,8 @@ class VacancySchema(Schemas):
     id: UUID
     name: str
     department: str
-    photo_url: str
-    logo_url: str
+    photo_url: str | None = None
+    logo_url: str | None = None
     level: str
     location: str
     important: bool
@@ -54,8 +54,8 @@ class VacancyIdSchema(Schemas):
     id: UUID
     name: str
     department: str
-    photo_url: str
-    logo_url: str
+    photo_url: str | None = None
+    logo_url: str | None = None
     level: str
     location: str
     info: str
