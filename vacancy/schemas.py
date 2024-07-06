@@ -9,7 +9,7 @@ photo_url = {
     "DESIGN": "https://s3.cyberzone.dev/job-site-assets/design.png",
     "IT": "https://s3.cyberzone.dev/job-site-assets/it.png",
     "PHOTO": "https://s3.cyberzone.dev/job-site-assets/photo.png",
-    "REFEREE":  "https://s3.cyberzone.dev/job-site-assets/referee.png",
+    "CYBERSPORT":  "https://s3.cyberzone.dev/job-site-assets/cybersport.png",
     "SMM":  "https://s3.cyberzone.dev/job-site-assets/smm.png",
     "TABLEGAMES": "https://s3.cyberzone.dev/job-site-assets/tablegames.png",
     "TWITCH": "https://s3.cyberzone.dev/job-site-assets/twitch.png",
@@ -22,7 +22,7 @@ logo_url = {
     "DESIGN": "https://s3.cyberzone.dev/job-site-assets/design_logo.png",
     "IT": "https://s3.cyberzone.dev/job-site-assets/it_logo.png",
     "PHOTO": "https://s3.cyberzone.dev/job-site-assets/photo_logo.png",
-    "REFEREE":  "https://s3.cyberzone.dev/job-site-assets/referee_logo.png",
+    "CYBERSPORT":  "https://s3.cyberzone.dev/job-site-assets/cybersport_logo.png",
     "SMM":  "https://s3.cyberzone.dev/job-site-assets/smm_logo.png",
     "TABLEGAMES": "https://s3.cyberzone.dev/job-site-assets/tablegames_logo.png",
     "TWITCH": "https://s3.cyberzone.dev/job-site-assets/twitch_logo.png",
@@ -70,8 +70,6 @@ class CreateVacancyRequestSchema(Schemas):
     """ 
     name: str
     department: str
-    photo_url: str
-    logo_url: str
     level: str
     location: str
     important: bool
