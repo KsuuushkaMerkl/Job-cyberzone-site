@@ -11,8 +11,7 @@ class Application(Base):
 
     id: Mapped[UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     vacancy_id: Mapped[int] = mapped_column(ForeignKey("vacancies.id", ondelete="CASCADE"))
-    first_name: Mapped[str] = mapped_column(String)
-    last_name: Mapped[str] = mapped_column(String)
+    full_name: Mapped[str] = mapped_column(String)
     email: Mapped[str] = mapped_column(String)
     phone: Mapped[str] = mapped_column(String)
     telegram: Mapped[str] = mapped_column(String)
