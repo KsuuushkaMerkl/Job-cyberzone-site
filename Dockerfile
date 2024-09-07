@@ -12,4 +12,5 @@ RUN pip install poetry && poetry config virtualenvs.create false
 
 RUN poetry install --no-interaction
 
-CMD uvicorn fastAPI:app --host 0.0.0.0 --port 8000 --reload
+CMD alembic upgrade head && uvicorn fastAPI:app --host 0.0.0.0 --port 8000 --reload
+
