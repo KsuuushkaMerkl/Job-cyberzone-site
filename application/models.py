@@ -1,6 +1,7 @@
 import uuid
+from datetime import datetime
 
-from sqlalchemy import ForeignKey, String, UUID
+from sqlalchemy import ForeignKey, String, UUID, DateTime
 from sqlalchemy.orm import mapped_column, Mapped
 from core.base_model import Base
 
@@ -15,9 +16,9 @@ class Application(Base):
     email: Mapped[str] = mapped_column(String)
     phone: Mapped[str] = mapped_column(String)
     telegram: Mapped[str] = mapped_column(String)
-    discord: Mapped[str] = mapped_column(String)
     comment: Mapped[str] = mapped_column(String)
     experience: Mapped[str] = mapped_column(String)
     portfolio: Mapped[str] = mapped_column(String)
     work_time: Mapped[str] = mapped_column(String)
     what_do_you_want: Mapped[str] = mapped_column(String)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(), nullable=False)

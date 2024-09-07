@@ -7,8 +7,9 @@ class Settings(BaseSettings):
     POSTGRES_HOST: str
     POSTGRES_USER: str
     POSTGRES_PASSWORD: str
-    POSTGRES_PORT: int
+    POSTGRES_PORT: str
 
 
 settings = Settings()
+
 

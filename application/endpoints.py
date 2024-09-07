@@ -94,4 +94,3 @@ async def delete_application(
             detail="Application not found"
         )
     return {"id": application_id}
-

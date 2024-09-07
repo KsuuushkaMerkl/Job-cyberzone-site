@@ -6,8 +6,8 @@ from fastapi.encoders import jsonable_encoder
 
 from core.database import get_session
 from vacancy.models import Vacancy
-from vacancy.schemas import VacancySchema, VacancyIdSchema, CreateVacancyRequestSchema, UpdateVacancyRequestSchema, \
-    logo_url, photo_url
+from vacancy.schemas import VacancyIdSchema, CreateVacancyRequestSchema, UpdateVacancyRequestSchema, \
+    logo_url, photo_url, AllVacancySchema, VacancyAdminSchema, UpdateVacancyResponseSchema
 
 router = APIRouter()
 
@@ -21,13 +21,15 @@ async def create_vacancy(
     Create new vacancy
     """
     vacancy = Vacancy(**data.model_dump())
+    vacancy.photo_url = photo_url.get(data.department, '')
+    vacancy.logo_url = logo_url.get(data.department, '')
     db.add(vacancy)
     db.commit()
     db.refresh(vacancy)
     return vacancy
 
 
-@router.patch("/{vacancy_id}", response_model=VacancyIdSchema)
+@router.patch("/{vacancy_id}", response_model=UpdateVacancyResponseSchema)
 async def update_vacancy(
         vacancy_id: uuid.UUID,
         data: UpdateVacancyRequestSchema,
@@ -47,26 +49,32 @@ async def update_vacancy(
     for field in obj_data:
         if field in update_data:
             setattr(vacancy, field, update_data[field])
+    vacancy.photo_url = photo_url.get(vacancy.department, '')
+    vacancy.logo_url = logo_url.get(vacancy.department, '')
     db.add(vacancy)
     db.commit()
     db.refresh(vacancy)
     return vacancy
 
 
-@router.get("/", response_model=list[VacancySchema])
+@router.get("/", response_model=list[AllVacancySchema])
 async def get_all_vacancies(
         db: scoped_session = Depends(get_session)
 ):
     """
     Get all vacancy
     """
-    vacancies_to_return = []
-    for vacancy in db.query(Vacancy).all():
-        vacancy_ = VacancySchema(**jsonable_encoder(vacancy))
-        vacancy_.photo_url = photo_url.get(vacancy_.department, '')
-        vacancy_.logo_url = logo_url.get(vacancy_.department, '')
-        vacancies_to_return.append(vacancy_)
-    return vacancies_to_return
+    return db.query(Vacancy).all()
+
+
+@router.get("/vacancy/admin", response_model=list[VacancyAdminSchema])
+async def get_admin_vacancies(
+        db: scoped_session = Depends(get_session)
+):
+    """
+    Get admin all vacancy
+    """
+    return db.query(Vacancy).all()
 
 
 @router.get("/{vacancy_id}", response_model=VacancyIdSchema)
@@ -83,10 +91,7 @@ async def get_vacancy_by_id(
             status_code=404,
             detail="Vacancy not found"
         )
-    vacancy_to_return = VacancyIdSchema(**jsonable_encoder(vacancy))
-    vacancy_to_return.photo_url = photo_url.get(vacancy_to_return.department, '')
-    vacancy_to_return.logo_url = logo_url.get(vacancy_to_return.department, '')
-    return vacancy_to_return
+    return vacancy
 
 
 @router.delete("/{vacancy_id}")
@@ -104,4 +109,3 @@ async def delete_vacancy(
             detail="Vacancy not found"
         )
     return {"id": vacancy_id}
-

@@ -6,7 +6,7 @@ COPY . .
 
 RUN pip install --upgrade pip
 
-RUN mkdir static
+RUN mkdir -p static
 
 RUN pip install poetry && poetry config virtualenvs.create false
 

@@ -30,21 +30,17 @@ logo_url = {
 }
 
 
-class VacancySchema(Schemas):
+class AllVacancySchema(Schemas):
     """
     Vacancy schema
     """
     id: UUID
     name: str
     department: str
-    photo_url: str | None = None
     logo_url: str | None = None
     level: str
     location: str
     important: bool
-    requirements: list[str]
-    tasks: list[str]
-    task: str
 
 
 class VacancyIdSchema(Schemas):
@@ -62,6 +58,24 @@ class VacancyIdSchema(Schemas):
     requirements: list[str]
     tasks: list[str]
     task: str
+    status: bool
+
+
+class VacancyAdminSchema(Schemas):
+    """
+    Vacancy admin schema
+    """
+    id: UUID
+    name: str
+    department: str
+    level: str
+    location: str
+    important: bool
+    info: str
+    requirements: list[str]
+    tasks: list[str]
+    task: str
+    status: bool
 
 
 class CreateVacancyRequestSchema(Schemas):
@@ -77,6 +91,7 @@ class CreateVacancyRequestSchema(Schemas):
     requirements: list[str]
     tasks: list[str]
     task: str
+    status: bool
 
 
 class UpdateVacancyRequestSchema(Schemas):
@@ -94,5 +109,20 @@ class UpdateVacancyRequestSchema(Schemas):
     requirements: list[str] | None = None
     tasks: list[str] | None = None
     task: str | None = None
+    status: bool | None = None
 
 
+class UpdateVacancyResponseSchema(Schemas):
+    """
+    Vacancy schema
+    """
+    id: UUID
+    name: str
+    department: str
+    level: str
+    location: str
+    info: str
+    requirements: list[str]
+    tasks: list[str]
+    task: str
+    status: bool

@@ -1,3 +1,4 @@
+from datetime import datetime
 from uuid import UUID
 from pydantic import Field, AliasChoices
 from core.schemas import Schemas
@@ -9,17 +10,16 @@ class ApplicationSchema(Schemas):
     """
     id: UUID
     vacancy_id: UUID = Field(validation_alias=AliasChoices("vacancy_id", "vacancyId"))
-    first_name: str = Field(validation_alias=AliasChoices("first_name", "firstName"))
-    last_name: str = Field(validation_alias=AliasChoices("last_name", "lastName"))
+    full_name: str = Field(validation_alias=AliasChoices("full_name", "fullName"))
     email: str
     phone: str
     telegram: str
-    discord: str
     comment: str
     experience: str
     portfolio: str
     work_time: str = Field(validation_alias=AliasChoices("work_time", "workTime"))
     what_do_you_want: str = Field(validation_alias=AliasChoices("what_do_you_want", "whatDoYouWant"))
+    created_at: datetime = Field(validation_alias=AliasChoices("created_at", "createdAt"))
 
 
 class CreateApplicationRequestSchema(Schemas):
@@ -27,12 +27,10 @@ class CreateApplicationRequestSchema(Schemas):
     Create application schema
     """
     vacancy_id: UUID = Field(validation_alias=AliasChoices("vacancy_id", "vacancyId"))
-    first_name: str = Field(validation_alias=AliasChoices("first_name", "firstName"))
-    last_name: str = Field(validation_alias=AliasChoices("last_name", "lastName"))
+    full_name: str = Field(validation_alias=AliasChoices("full_name", "fullName"))
     email: str
     phone: str
     telegram: str
-    discord: str
     comment: str
     experience: str
     portfolio: str
@@ -44,16 +42,12 @@ class UpdateApplicationRequestSchema(Schemas):
     """
     Update application request schema
     """
-    first_name: str | None = Field(None, validation_alias=AliasChoices("first_name", "firstName"))
-    last_name: str | None = Field(None, validation_alias=AliasChoices("last_name", "lastName"))
+    full_name: str = Field(validation_alias=AliasChoices("full_name", "fullName"))
     email: str | None = None
     phone: str | None = None
     telegram: str | None = None
-    discord: str | None = None
     comment: str | None = None
     experience: str | None = None
     portfolio: str | None = None
     work_time: str | None = Field(None, validation_alias=AliasChoices("work_time", "workTime"))
     what_do_you_want: str | None = Field(None, validation_alias=AliasChoices("what_do_you_want", "whatDoYouWant"))
-
-

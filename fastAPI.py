@@ -29,11 +29,6 @@ app.add_middleware(
 app.mount("/static", StaticFiles(directory="static"))
 
 
-@app.on_event("startup")
-def start():
-    Base.metadata.create_all(engine)
-
-
 @app.post("/uploadfile/")
 async def create_upload_file(file: UploadFile = File(...)):
     with open("static/" + file.filename, "wb") as f:

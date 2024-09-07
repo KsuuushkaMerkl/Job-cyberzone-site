@@ -20,3 +20,4 @@ class Vacancy(Base):
     requirements: Mapped[list[str]] = mapped_column(type_=ARRAY(String), nullable=True)
     tasks: Mapped[list[str]] = mapped_column(type_=ARRAY(String), nullable=True)
     task: Mapped[str] = mapped_column(String)
+    status: Mapped[bool] = mapped_column(Boolean)
