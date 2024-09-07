@@ -67,7 +67,7 @@ async def get_all_vacancies(
     return db.query(Vacancy).all()
 
 
-@router.get("/vacancy/admin", response_model=list[VacancyAdminSchema])
+@router.get("/admin", response_model=list[VacancyAdminSchema])
 async def get_admin_vacancies(
         db: scoped_session = Depends(get_session)
 ):
