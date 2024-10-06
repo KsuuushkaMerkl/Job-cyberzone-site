@@ -1,6 +1,8 @@
 from datetime import datetime
 from uuid import UUID
 from pydantic import Field, AliasChoices
+
+from application.models import ApplicationStatus
 from core.schemas import Schemas
 
 
@@ -20,6 +22,8 @@ class ApplicationSchema(Schemas):
     work_time: str = Field(validation_alias=AliasChoices("work_time", "workTime"))
     what_do_you_want: str = Field(validation_alias=AliasChoices("what_do_you_want", "whatDoYouWant"))
     created_at: datetime = Field(validation_alias=AliasChoices("created_at", "createdAt"))
+    answered_at: datetime = Field(validation_alias=AliasChoices("answered_at", "answeredAt"))
+    status: ApplicationStatus
 
 
 class CreateApplicationRequestSchema(Schemas):
@@ -36,6 +40,8 @@ class CreateApplicationRequestSchema(Schemas):
     portfolio: str
     work_time: str = Field(validation_alias=AliasChoices("work_time", "workTime"))
     what_do_you_want: str = Field(validation_alias=AliasChoices("what_do_you_want", "whatDoYouWant"))
+    answered_at: datetime = Field(validation_alias=AliasChoices("answered_at", "answeredAt"))
+    status: ApplicationStatus = Field(default=ApplicationStatus.PENDING)
 
 
 class UpdateApplicationRequestSchema(Schemas):
@@ -51,3 +57,10 @@ class UpdateApplicationRequestSchema(Schemas):
     portfolio: str | None = None
     work_time: str | None = Field(None, validation_alias=AliasChoices("work_time", "workTime"))
     what_do_you_want: str | None = Field(None, validation_alias=AliasChoices("what_do_you_want", "whatDoYouWant"))
+    status: ApplicationStatus | None = None
+
+class UpdateApplicationStatusSchema(Schemas):
+    """
+    Update status application schema
+    """
+    status: bool

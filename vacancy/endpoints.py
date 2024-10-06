@@ -7,7 +7,8 @@ from fastapi.encoders import jsonable_encoder
 from core.database import get_session
 from vacancy.models import Vacancy
 from vacancy.schemas import VacancyIdSchema, CreateVacancyRequestSchema, UpdateVacancyRequestSchema, \
-    logo_url, photo_url, AllVacancySchema, VacancyAdminSchema, UpdateVacancyResponseSchema
+    logo_url, photo_url, AllVacancySchema, VacancyAdminSchema, UpdateVacancyResponseSchema, \
+    UpdateVacancyImportantSchema, UpdateVacancyStatusSchema
 
 router = APIRouter()
 
@@ -64,7 +65,7 @@ async def get_all_vacancies(
     """
     Get all vacancy
     """
-    return db.query(Vacancy).all()
+    return db.query(Vacancy).filter(Vacancy.status == True).all()
 
 
 @router.get("/admin", response_model=list[VacancyAdminSchema])
@@ -109,3 +110,44 @@ async def delete_vacancy(
             detail="Vacancy not found"
         )
     return {"id": vacancy_id}
+
+
+@router.patch("/{vacancy_id}/status", response_model=UpdateVacancyResponseSchema)
+async def update_vacancy_status(
+        vacancy_id: uuid.UUID,
+        data: UpdateVacancyStatusSchema,
+        db: scoped_session = Depends(get_session)
+):
+    """
+    Update vacancy status
+    """
+    vacancy = db.query(Vacancy).filter(Vacancy.id == vacancy_id).first()
+    if not vacancy:
+        raise HTTPException(
+            status_code=404,
+            detail="Vacancy not found"
+        )
+    vacancy.status = data.status
+    db.commit()
+    db.refresh(vacancy)
+    return vacancy
+
+@router.patch("/{vacancy_id}/important", response_model=UpdateVacancyResponseSchema)
+async def update_vacancy_important(
+        vacancy_id: uuid.UUID,
+        data: UpdateVacancyImportantSchema,
+        db: scoped_session = Depends(get_session)
+):
+    """
+    Update vacancy important flag
+    """
+    vacancy = db.query(Vacancy).filter(Vacancy.id == vacancy_id).first()
+    if not vacancy:
+        raise HTTPException(
+            status_code=404,
+            detail="Vacancy not found"
+        )
+    vacancy.important = data.important
+    db.commit()
+    db.refresh(vacancy)
+    return vacancy

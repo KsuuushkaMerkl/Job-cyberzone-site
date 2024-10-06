@@ -6,10 +6,10 @@ from fastapi.encoders import jsonable_encoder
 
 from core.database import get_session
 from application.models import Application
-from application.schemas import CreateApplicationRequestSchema, ApplicationSchema, UpdateApplicationRequestSchema
+from application.schemas import CreateApplicationRequestSchema, ApplicationSchema, UpdateApplicationRequestSchema, \
+    UpdateApplicationStatusSchema
 
 router = APIRouter()
-
 
 @router.post("/", response_model=ApplicationSchema)
 async def create_application(
@@ -25,7 +25,6 @@ async def create_application(
     db.refresh(application)
     return application
 
-
 @router.patch("/{application_id}", response_model=ApplicationSchema)
 async def update_application(
         application_id: uuid.UUID,
@@ -37,7 +36,7 @@ async def update_application(
     """
     application = db.query(Application).filter(Application.id == application_id).first()
     if not application:
-        return HTTPException(
+        raise HTTPException(
             status_code=404,
             detail="Application not found"
         )
@@ -51,7 +50,6 @@ async def update_application(
     db.refresh(application)
     return application
 
-
 @router.get("/", response_model=list[ApplicationSchema])
 async def get_all_applications(
         db: scoped_session = Depends(get_session)
@@ -60,7 +58,6 @@ async def get_all_applications(
     Get all applications
     """
     return db.query(Application).all()
-
 
 @router.get("/{application_id}", response_model=ApplicationSchema)
 async def get_application_by_id(
@@ -72,12 +69,11 @@ async def get_application_by_id(
     """
     application = db.query(Application).filter(Application.id == application_id).first()
     if not application:
-        return HTTPException(
+        raise HTTPException(
             status_code=404,
             detail="Application not found"
         )
     return application
-
 
 @router.delete("/{application_id}")
 async def delete_application(
@@ -89,8 +85,29 @@ async def delete_application(
     """
     application = db.query(Application).filter(Application.id == application_id).delete()
     if application == 0:
-        return HTTPException(
+        raise HTTPException(
             status_code=404,
             detail="Application not found"
         )
+    db.commit()
     return {"id": application_id}
+
+@router.patch("/{application_id}/status", response_model=ApplicationSchema)
+async def update_application_status(
+        application_id: uuid.UUID,
+        data: UpdateApplicationStatusSchema,
+        db: scoped_session = Depends(get_session)
+):
+    """
+    Update application status
+    """
+    application = db.query(Application).filter(Application.id == application_id).first()
+    if not application:
+        raise HTTPException(
+            status_code=404,
+            detail="Application not found"
+        )
+    application.status = data.status
+    db.commit()
+    db.refresh(application)
+    return application

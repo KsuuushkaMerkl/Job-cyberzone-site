@@ -1,9 +1,19 @@
 import uuid
 from datetime import datetime
+from enum import Enum
 
-from sqlalchemy import ForeignKey, String, UUID, DateTime
+from sqlalchemy import ForeignKey, String, UUID, DateTime, Enum as SQLAlchemyEnum
+
 from sqlalchemy.orm import mapped_column, Mapped
 from core.base_model import Base
+
+
+class ApplicationStatus(str, Enum):
+    PENDING = "Ожидает"
+    CANCELED = "Отменена"
+    VIEWED = "Просмотрена"
+    APPROVED = "Одобрено"
+    REJECTED = "Отклонено"
 
 
 class Application(Base):
@@ -21,3 +31,6 @@ class Application(Base):
     work_time: Mapped[str] = mapped_column(String)
     what_do_you_want: Mapped[str] = mapped_column(String)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(), nullable=False)
+    answered_at: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(), nullable=False)
+    status: Mapped[ApplicationStatus] = mapped_column(SQLAlchemyEnum(ApplicationStatus),
+                                                      default=ApplicationStatus.PENDING)

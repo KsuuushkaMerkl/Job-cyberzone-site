@@ -58,7 +58,6 @@ class VacancyIdSchema(Schemas):
     requirements: list[str]
     tasks: list[str]
     task: str
-    status: bool
 
 
 class VacancyAdminSchema(Schemas):
@@ -126,3 +125,18 @@ class UpdateVacancyResponseSchema(Schemas):
     tasks: list[str]
     task: str
     status: bool
+
+
+class UpdateVacancyStatusSchema(Schemas):
+    """
+    Update status vacancy schema
+    """
+    status: bool
+
+
+class UpdateVacancyImportantSchema(Schemas):
+    """
+    Update important vacancy schema
+    """
+    important: bool
+
