@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 9cc92fa241db
+Revision ID: d670c1893413
 Revises: 
-Create Date: 2024-09-07 20:05:11.593883
+Create Date: 2024-10-09 15:32:36.071824
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '9cc92fa241db'
+revision: str = 'd670c1893413'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -33,13 +33,13 @@ def upgrade() -> None:
     sa.Column('requirements', sa.ARRAY(sa.String()), nullable=True),
     sa.Column('tasks', sa.ARRAY(sa.String()), nullable=True),
     sa.Column('task', sa.String(), nullable=False),
+    sa.Column('status', sa.Boolean(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('applications',
     sa.Column('id', sa.UUID(), nullable=False),
     sa.Column('vacancy_id', sa.UUID(), nullable=False),
-    sa.Column('first_name', sa.String(), nullable=False),
-    sa.Column('last_name', sa.String(), nullable=False),
+    sa.Column('full_name', sa.String(), nullable=False),
     sa.Column('email', sa.String(), nullable=False),
     sa.Column('phone', sa.String(), nullable=False),
     sa.Column('telegram', sa.String(), nullable=False),
@@ -48,6 +48,9 @@ def upgrade() -> None:
     sa.Column('portfolio', sa.String(), nullable=False),
     sa.Column('work_time', sa.String(), nullable=False),
     sa.Column('what_do_you_want', sa.String(), nullable=False),
+    sa.Column('created_at', sa.DateTime(), nullable=False),
+    sa.Column('answered_at', sa.DateTime(), nullable=False),
+    sa.Column('status', sa.Enum('PENDING', 'CANCELED', 'VIEWED', 'APPROVED', 'REJECTED', name='applicationstatus'), nullable=False),
     sa.ForeignKeyConstraint(['vacancy_id'], ['vacancies.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
